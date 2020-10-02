@@ -21,7 +21,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="Default.aspx">Home</a>
 
         </div>
     </nav>
@@ -38,7 +38,7 @@
                     <asp:BoundField DataField="ValSemanal" HeaderText="Valor Semanal"></asp:BoundField>
                     <asp:TemplateField HeaderText="Aluguel">
                         <ItemTemplate>
-                            <asp:ImageButton ID="btnAlugarCarro" runat="server" ToolTip="Alugar" ImageUrl="icons/botao.png" CommandArgument='<%#Eval("IdCarro") + "/" + Eval("Marca") + "/" + Eval("Modelo") + "/" + Eval("ValSemanal")%>' OnCommand="btnAlugarCarro_Command" Height="40px" Width="75px" />
+                            <asp:ImageButton ID="btnAlugarCarro" runat="server" ToolTip="Alugar" ImageUrl="icons/botao.png" CommandArgument='<%#Eval("IdCarro") + "/" /*+ "/" + Eval("Marca") + "/" + Eval("Modelo") + "/" */ + Eval("ValSemanal")%>' OnCommand="btnAlugarCarro_Command" Height="40px" Width="75px" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

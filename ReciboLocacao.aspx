@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Cadastro.aspx.cs" Inherits="locadoraCarros1.Cadastro" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReciboLocacao.aspx.cs" Inherits="locadoraCarros1.ReciboLocacao" %>
 
 <!DOCTYPE html>
 
@@ -26,40 +26,45 @@
         </div>
     </nav>
 
-    <!-- Form -->
-
-    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+    <!-- Catalogo -->
+    <div class="container" style="margin-top: 2%; margin-bottom: 2%; text-align: center;">
         <form runat="server">
-            <div class="form-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <asp:TextBox ID="txtBoxEmail" runat="server" ReadOnly CssClass="form-control-plaintext" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="txtBoxNome">Nome: </label>
+                    <asp:TextBox ID="txtBoxNome" readonly runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="txtBoxMarca">Marca: </label>
+                    <asp:TextBox ID="txtBoxMarca" readonly runat="server" CssClass="form-control" />
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="txtBoxNome" class="col-sm-2 col-form-label">Nome: </label>
-                <div class="col-sm-10">
-                    <asp:TextBox ID="txtBoxNome" runat="server" CssClass="form-control" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="txtBoxModelo">Modelo: </label>
+                    <asp:TextBox ID="txtBoxModelo" readonly runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="txtBoxDtLocacao">Data de Locação: </label>
+                    <asp:TextBox ID="txtBoxDtLocacao" readonly runat="server" CssClass="form-control" />
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="txtBoxNome" class="col-sm-2 col-form-label">CPF:  </label>
-                <div class="col-sm-10">
-                    <asp:TextBox ID="txtBoxCPF" runat="server" CssClass="form-control" />
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="txtBoxDtDevolucao">Data de Devolução: </label>
+                    <asp:TextBox ID="txtBoxDtDevolucao" readonly runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="txtBoxValTotal">Valor Total: </label>
+                    <asp:TextBox ID="txtBoxValTotal" readonly runat="server" CssClass="form-control" />
                 </div>
             </div>
 
-            <div class="row" style="text-align: center">
-                <div class="col-md-12">
-                    <asp:Button ID="Button1" runat="server" Text="Cadastrar" CssClass="btn btn-primary btn-dark" OnCommand="btnCadastrar_Command" />
-                </div>
-            </div>
         </form>
     </div>
-
-
 
     <!-- Footer -->
     <footer class="footer bg-light">

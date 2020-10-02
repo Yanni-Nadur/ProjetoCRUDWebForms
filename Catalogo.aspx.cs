@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using locadoraCarros1.modelos;
 using System.Xml;
+using System.Globalization;
 
 namespace locadoraCarros1 {
     public partial class Catalogo : System.Web.UI.Page {
@@ -40,30 +41,36 @@ namespace locadoraCarros1 {
 
         protected void btnAlugarCarro_Command(object sender, CommandEventArgs e) {
             int IdCarro = int.Parse(PegaValor_Combo(e.CommandArgument.ToString(), 1, "/"));
-            string Marca = PegaValor_Combo(e.CommandArgument.ToString(), 2, "/");
-            string Modelo = PegaValor_Combo(e.CommandArgument.ToString(), 3, "/");
-            decimal ValSemanal = decimal.Parse(PegaValor_Combo(e.CommandArgument.ToString(), 4, "/"));
+            decimal ValSemanal = decimal.Parse(PegaValor_Combo(e.CommandArgument.ToString(), 2, "/"));
+            geraNotaLocacao(IdCarro, ValSemanal);
+            Response.Redirect("~/ReciboLocacao.aspx");
 
         }
 
-        //private SimulaLogin 
+        private SimulaLogin retornaDadosCadastrais() => (SimulaLogin)Session["simulaLogin"];
 
-        //private void geraNotaLocacao(int idCarro) {
-        //    try {
-        //        con.Open();
-        //        SqlCommand cmd = con.CreateCommand();
-        //        cmd.CommandType = CommandType.Text;
-        //        Session["Cadastro"]
 
-        //        cmd.CommandText = $"insert into Locacoes values('{txtBoxNome.Text}','{txtBoxCPF.Text}', '{txtBoxEmail.Text}')";
-        //        cmd.ExecuteNonQuery();
-        //        con.Close();
-        //    }
-        //    catch (Exception ex) {
-        //        throw new Exception(ex.Message);
-        //    }
+        private void geraNotaLocacao(int idCarro, decimal valSemanal) {
+            try {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
 
-        //}
+                SimulaLogin dadosCadastrais = retornaDadosCadastrais();
+
+                DateTime dtLocacao = DateTime.Now;
+                DateTime dtDevolucao = (dtLocacao.AddDays(7));
+
+
+                cmd.CommandText = $"insert into Locacoes (IdCliente, IdCarro , DtLocacao, DtDevolucao, ValLocacao) values ('{dadosCadastrais.IdCliente}', '{idCarro}', '{dtLocacao}', '{dtDevolucao}', '{valSemanal.ToString("F2", CultureInfo.InvariantCulture)}')";
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+
+        }
 
         private static string PegaValor_Combo(string sTexto, int TermoPedido, string sSimbolo = "-") {
             if (sTexto.Length == 0 | TermoPedido == 0) {
