@@ -1,4 +1,5 @@
 ﻿using System;
+using locadoraCarros1.modelos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,12 +19,44 @@ namespace locadoraCarros1 {
         }
 
         protected void btnCadastrar_Command(object sender, CommandEventArgs e) {
+
+            try {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = $"insert into Clientes values('{txtBoxNome.Text}','{txtBoxCPF.Text}', '{txtBoxEmail.Text}')";
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+
+            logar();
+        }
+
+        private void logar() {
             con.Open();
+
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = $"insert into Clientes values('{txtBoxNome.Text}','{txtBoxCPF.Text}', '{txtBoxEmail.Text}')";
-            cmd.ExecuteNonQuery();
+            cmd.CommandText = $"select * from Clientes where Email='{txtBoxEmail.Text}'";
+            SqlDataReader dtr = cmd.ExecuteReader();
+
+            SimulaLogin smLog = new SimulaLogin();
+
+            while (dtr.Read()) {
+                smLog.IdCliente = int.Parse(dtr["IdCliente"].ToString());
+                smLog.Nome = dtr["Nome"].ToString();
+                smLog.CPF = dtr["CPF"].ToString();
+                smLog.Email = dtr["Email"].ToString();
+            };
+
+            Session["simulaLogin"] = smLog;
+
             con.Close();
+
+            Response.Redirect("~/Catalogo.aspx");
         }
     }
 }

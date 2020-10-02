@@ -17,7 +17,7 @@
 
 </head>
 <body>
-
+    
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
@@ -28,21 +28,23 @@
 
     <!-- Catalogo -->
 
-    <div class="container" style="margin-top: 2%; margin-bottom: 2%; text-align:center;">
+    <div class="container" style="margin-top: 2%; margin-bottom: 2%; text-align: center;">
         <form runat="server">
             <asp:GridView ID="gvCatalogo" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="false">
                 <Columns>
                     <asp:BoundField DataField="IdCarro" HeaderText="ID Carro"></asp:BoundField>
                     <asp:BoundField DataField="Marca" HeaderText="Marca"></asp:BoundField>
                     <asp:BoundField DataField="Modelo" HeaderText="Modelo"></asp:BoundField>
-                    <%--<asp:BoundField DataField="ValSemanal" HeaderText="Valor Semanal"></asp:BoundField>--%>
+                    <asp:BoundField DataField="ValSemanal" HeaderText="Valor Semanal"></asp:BoundField>
                     <asp:TemplateField HeaderText="Aluguel">
                         <ItemTemplate>
-                            <asp:Button ID="btnAlugarCarro" runat="server" Text="Alugar" />
+                            <asp:ImageButton ID="btnAlugarCarro" runat="server" ToolTip="Alugar" ImageUrl="icons/botao.png" CommandArgument='<%#Eval("IdCarro") + "/" + Eval("Marca") + "/" + Eval("Modelo") + "/" + Eval("ValSemanal")%>' OnCommand="btnAlugarCarro_Command" Height="40px" Width="75px" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+
+            
         </form>
     </div>
 
